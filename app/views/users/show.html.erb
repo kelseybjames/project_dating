@@ -1,0 +1,13 @@
+<h1><%= @user.full_name %></h1>
+<p>Email: <%= @user.email %></p>
+<p>Age: <%= @user.age %></p>
+<p>Gender: <%= @user.gender %></p>
+
+<% @user.responses.each do |response| %>
+  <p>
+    <%= response.question.body %>
+    Answer: <%= response.value %>
+  <p>
+<% end %>
+
+<%= link_to 'Index', users_path %>
