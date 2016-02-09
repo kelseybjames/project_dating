@@ -6,6 +6,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @questions = Question.all
+    @user.questions.build
+    @question_options = Question.all.map{|q| [ q.body, q.id ] }
   end
 
   def create
@@ -25,11 +28,13 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @questions = Question.all
+    @user.questions.build
   end
 
   def update
     @user = User.find(params[:id])
-    if @user.update
+    if @user.update(whitelisted_params)
       flash[:success] = 'User updated'
       redirect_to user_path(@user)
     else
@@ -52,6 +57,17 @@ class UsersController < ApplicationController
   private
 
   def whitelisted_params
-    params.require(:user).permit(:first_name, :last_name, :email, :age, :gender)
+    params.require(:user).permit(
+                        :first_name, 
+                        :last_name, 
+                        :email, 
+                        :age, 
+                        :gender,
+                        :responses_attributes => [
+                          :value, 
+                          :id, 
+                          :question_id, 
+                          :_destroy
+                          ])
   end
 end

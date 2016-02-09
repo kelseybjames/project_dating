@@ -1,0 +1,9 @@
+<h2>Questions</h2>
+<%= user_field.fields_for :responses do |response_fields| %>
+  
+  <%= response_fields.label :question_id %>
+  <%= response_fields.select(:question_id, (1..5).to_a) %>
+  <br>
+
+
+<% end %>

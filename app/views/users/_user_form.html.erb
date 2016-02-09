@@ -1,0 +1,22 @@
+<%= form_for @user do |user_field| %>
+  <%= user_field.label :first_name %>
+  <%= user_field.text_field :first_name %>
+  <br>
+  <%= user_field.label :last_name %>
+  <%= user_field.text_field :last_name %>
+  <br>
+  <%= user_field.label :email %>
+  <%= user_field.text_field :email %>
+  <br>
+  <%= user_field.label :age %>
+  <%= user_field.select :age, (18..65).to_a %>
+  <br>
+  <%= user_field.label :gender %>
+  <%= user_field.text_field :gender %>
+  <br>
+  
+  <%= render partial: 'question_form', locals: { user: @user, responses: @user.responses, questions: @questions, user_field: user_field } %>
+
+  <%= user_field.submit %>
+
+<% end %>
